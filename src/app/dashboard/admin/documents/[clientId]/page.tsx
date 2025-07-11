@@ -19,15 +19,18 @@ import {
   IconEdit,
   IconTrash,
   IconFileText,
-  IconSearch,
-  IconFilter,
   IconBuilding,
-  IconUsers,
   IconArrowLeft
 } from '@tabler/icons-react';
 import Link from 'next/link';
 
-export default async function AdminDocumentsPage() {
+interface PageProps {
+  params: {
+    clientId: string;
+  };
+}
+
+export default async function ClientDocumentsPage({ params }: PageProps) {
   const { userId } = await auth();
 
   if (!userId) {
@@ -129,12 +132,30 @@ export default async function AdminDocumentsPage() {
           uploaded_at: '2024-01-05T09:15:00Z',
           status: 'completed',
           category: 'Payroll'
+        },
+        {
+          id: '4',
+          name: 'Invoice Template Q4',
+          type: 'Word',
+          size: '245 KB',
+          uploaded_at: '2024-01-03T16:45:00Z',
+          status: 'draft',
+          category: 'Invoices'
+        },
+        {
+          id: '5',
+          name: 'Employee Handbook 2024',
+          type: 'PDF',
+          size: '3.2 MB',
+          uploaded_at: '2024-01-01T11:20:00Z',
+          status: 'completed',
+          category: 'HR Documents'
         }
       ],
       '2': [
         // TechStart Inc
         {
-          id: '4',
+          id: '6',
           name: 'Annual Financial Report 2024',
           type: 'PDF',
           size: '1.8 MB',
@@ -143,61 +164,16 @@ export default async function AdminDocumentsPage() {
           category: 'Financial Reports'
         },
         {
-          id: '5',
+          id: '7',
           name: 'Invoice Template',
           type: 'Word',
           size: '245 KB',
           uploaded_at: '2024-01-03T16:45:00Z',
           status: 'draft',
           category: 'Invoices'
-        }
-      ],
-      '3': [
-        // Global Solutions
-        {
-          id: '6',
-          name: 'Payroll Records Q4',
-          type: 'Excel',
-          size: '856 KB',
-          uploaded_at: '2024-01-05T09:15:00Z',
-          status: 'completed',
-          category: 'Payroll'
         },
-        {
-          id: '7',
-          name: 'Contract Agreement',
-          type: 'PDF',
-          size: '1.1 MB',
-          uploaded_at: '2023-12-28T13:10:00Z',
-          status: 'pending',
-          category: 'Contracts'
-        }
-      ],
-      '4': [
-        // StartupXYZ
         {
           id: '8',
-          name: 'Invoice Template',
-          type: 'Word',
-          size: '245 KB',
-          uploaded_at: '2024-01-03T16:45:00Z',
-          status: 'draft',
-          category: 'Invoices'
-        }
-      ],
-      '5': [
-        // MegaCorp
-        {
-          id: '9',
-          name: 'Employee Handbook 2024',
-          type: 'PDF',
-          size: '3.2 MB',
-          uploaded_at: '2024-01-01T11:20:00Z',
-          status: 'completed',
-          category: 'HR Documents'
-        },
-        {
-          id: '10',
           name: 'Q4 Tax Return 2024',
           type: 'PDF',
           size: '2.4 MB',
@@ -206,22 +182,119 @@ export default async function AdminDocumentsPage() {
           category: 'Tax Returns'
         }
       ],
-      '6': [
-        // SmallBiz Ltd
+      '3': [
+        // Global Solutions
         {
-          id: '11',
+          id: '9',
+          name: 'Payroll Records Q4',
+          type: 'Excel',
+          size: '856 KB',
+          uploaded_at: '2024-01-05T09:15:00Z',
+          status: 'completed',
+          category: 'Payroll'
+        },
+        {
+          id: '10',
           name: 'Contract Agreement',
           type: 'PDF',
           size: '1.1 MB',
           uploaded_at: '2023-12-28T13:10:00Z',
           status: 'pending',
           category: 'Contracts'
+        },
+        {
+          id: '11',
+          name: 'Financial Report Q4',
+          type: 'PDF',
+          size: '1.8 MB',
+          uploaded_at: '2024-01-10T14:20:00Z',
+          status: 'completed',
+          category: 'Financial Reports'
+        }
+      ],
+      '4': [
+        // StartupXYZ
+        {
+          id: '12',
+          name: 'Invoice Template',
+          type: 'Word',
+          size: '245 KB',
+          uploaded_at: '2024-01-03T16:45:00Z',
+          status: 'draft',
+          category: 'Invoices'
+        },
+        {
+          id: '13',
+          name: 'Employee Handbook',
+          type: 'PDF',
+          size: '3.2 MB',
+          uploaded_at: '2024-01-01T11:20:00Z',
+          status: 'completed',
+          category: 'HR Documents'
+        }
+      ],
+      '5': [
+        // MegaCorp
+        {
+          id: '14',
+          name: 'Employee Handbook 2024',
+          type: 'PDF',
+          size: '3.2 MB',
+          uploaded_at: '2024-01-01T11:20:00Z',
+          status: 'completed',
+          category: 'HR Documents'
+        },
+        {
+          id: '15',
+          name: 'Q4 Tax Return 2024',
+          type: 'PDF',
+          size: '2.4 MB',
+          uploaded_at: '2024-01-15T10:30:00Z',
+          status: 'completed',
+          category: 'Tax Returns'
+        },
+        {
+          id: '16',
+          name: 'Annual Financial Report 2024',
+          type: 'PDF',
+          size: '1.8 MB',
+          uploaded_at: '2024-01-10T14:20:00Z',
+          status: 'completed',
+          category: 'Financial Reports'
+        }
+      ],
+      '6': [
+        // SmallBiz Ltd
+        {
+          id: '17',
+          name: 'Contract Agreement',
+          type: 'PDF',
+          size: '1.1 MB',
+          uploaded_at: '2023-12-28T13:10:00Z',
+          status: 'pending',
+          category: 'Contracts'
+        },
+        {
+          id: '18',
+          name: 'Invoice Template',
+          type: 'Word',
+          size: '245 KB',
+          uploaded_at: '2024-01-03T16:45:00Z',
+          status: 'draft',
+          category: 'Invoices'
         }
       ]
     };
 
     return documentsByClient[clientId as keyof typeof documentsByClient] || [];
   };
+
+  const client = clients.find((c) => c.id === params.clientId);
+  const documents = getClientDocuments(params.clientId);
+
+  if (!client) {
+    return redirect('/dashboard/admin/documents');
+  }
 
   const getClientStatusBadge = (status: string) => {
     const variants = {
@@ -276,58 +349,74 @@ export default async function AdminDocumentsPage() {
       <div className='flex flex-1 flex-col space-y-6'>
         {/* Header */}
         <div className='flex items-center justify-between'>
-          <div>
-            <div className='mb-2 flex items-center gap-2'>
-              <IconFolder className='h-6 w-6 text-orange-600' />
-              <Badge variant='secondary' className='text-orange-600'>
-                Admin Only
-              </Badge>
+          <div className='flex items-center gap-4'>
+            <Link href='/dashboard/admin/documents'>
+              <Button variant='ghost' size='sm'>
+                <IconArrowLeft className='mr-2 h-4 w-4' />
+                Back to Clients
+              </Button>
+            </Link>
+            <div>
+              <div className='mb-2 flex items-center gap-2'>
+                <IconBuilding className='h-6 w-6 text-blue-600' />
+                {getClientStatusBadge(client.status)}
+              </div>
+              <h1 className='text-3xl font-bold tracking-tight'>
+                {client.name}
+              </h1>
+              <p className='text-muted-foreground'>
+                Documents and files for {client.name}
+              </p>
             </div>
-            <h1 className='text-3xl font-bold tracking-tight'>Documents</h1>
-            <p className='text-muted-foreground'>
-              Select a client to view and manage their documents
-            </p>
           </div>
           <div className='flex items-center space-x-2'>
             <Button variant='outline'>
-              <IconFilter className='mr-2 h-4 w-4' />
-              Filter Clients
-            </Button>
-            <Button>
               <IconUpload className='mr-2 h-4 w-4' />
               Upload Document
+            </Button>
+            <Button>
+              <IconDownload className='mr-2 h-4 w-4' />
+              Export All
             </Button>
           </div>
         </div>
 
+        {/* Client Info */}
+        <Card>
+          <CardContent className='p-6'>
+            <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-4'>
+              <div>
+                <h3 className='text-muted-foreground text-sm font-medium'>
+                  Email
+                </h3>
+                <p className='text-sm'>{client.email}</p>
+              </div>
+              <div>
+                <h3 className='text-muted-foreground text-sm font-medium'>
+                  Status
+                </h3>
+                <div className='mt-1'>
+                  {getClientStatusBadge(client.status)}
+                </div>
+              </div>
+              <div>
+                <h3 className='text-muted-foreground text-sm font-medium'>
+                  Total Documents
+                </h3>
+                <p className='text-sm'>{client.document_count}</p>
+              </div>
+              <div>
+                <h3 className='text-muted-foreground text-sm font-medium'>
+                  Total Size
+                </h3>
+                <p className='text-sm'>{client.total_size}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Stats Cards */}
         <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-4'>
-          <Card>
-            <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-              <CardTitle className='text-sm font-medium'>
-                Total Clients
-              </CardTitle>
-              <IconUsers className='text-muted-foreground h-4 w-4' />
-            </CardHeader>
-            <CardContent>
-              <div className='text-2xl font-bold'>{clients.length}</div>
-              <p className='text-muted-foreground text-xs'>With documents</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-              <CardTitle className='text-sm font-medium'>
-                Active Clients
-              </CardTitle>
-              <IconBuilding className='text-muted-foreground h-4 w-4' />
-            </CardHeader>
-            <CardContent>
-              <div className='text-2xl font-bold'>
-                {clients.filter((client) => client.status === 'active').length}
-              </div>
-              <p className='text-muted-foreground text-xs'>Currently active</p>
-            </CardContent>
-          </Card>
           <Card>
             <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
               <CardTitle className='text-sm font-medium'>
@@ -336,15 +425,34 @@ export default async function AdminDocumentsPage() {
               <IconFileText className='text-muted-foreground h-4 w-4' />
             </CardHeader>
             <CardContent>
+              <div className='text-2xl font-bold'>{documents.length}</div>
+              <p className='text-muted-foreground text-xs'>For this client</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+              <CardTitle className='text-sm font-medium'>Completed</CardTitle>
+              <IconFileText className='text-muted-foreground h-4 w-4' />
+            </CardHeader>
+            <CardContent>
               <div className='text-2xl font-bold'>
-                {clients.reduce(
-                  (total, client) => total + client.document_count,
-                  0
-                )}
+                {documents.filter((doc) => doc.status === 'completed').length}
               </div>
               <p className='text-muted-foreground text-xs'>
-                Across all clients
+                Processed documents
               </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+              <CardTitle className='text-sm font-medium'>Pending</CardTitle>
+              <IconFileText className='text-muted-foreground h-4 w-4' />
+            </CardHeader>
+            <CardContent>
+              <div className='text-2xl font-bold'>
+                {documents.filter((doc) => doc.status === 'pending').length}
+              </div>
+              <p className='text-muted-foreground text-xs'>Awaiting review</p>
             </CardContent>
           </Card>
           <Card>
@@ -353,75 +461,73 @@ export default async function AdminDocumentsPage() {
               <IconFileText className='text-muted-foreground h-4 w-4' />
             </CardHeader>
             <CardContent>
-              <div className='text-2xl font-bold'>96.4 MB</div>
+              <div className='text-2xl font-bold'>{client.total_size}</div>
               <p className='text-muted-foreground text-xs'>Combined storage</p>
             </CardContent>
           </Card>
         </div>
 
-        {/* Client Selection */}
+        {/* Documents */}
         <Card>
           <CardHeader>
-            <CardTitle>Select a Client</CardTitle>
+            <CardTitle>Documents</CardTitle>
             <CardDescription>
-              Choose a client to view and manage their documents
+              View and manage documents for {client.name}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {clients.length === 0 ? (
+            {documents.length === 0 ? (
               <div className='py-8 text-center'>
-                <IconUsers className='text-muted-foreground mx-auto mb-4 h-12 w-12' />
+                <IconFileText className='text-muted-foreground mx-auto mb-4 h-12 w-12' />
                 <h3 className='text-muted-foreground text-lg font-medium'>
-                  No clients found
+                  No documents found
                 </h3>
                 <p className='text-muted-foreground text-sm'>
-                  Add clients to get started.
+                  Upload the first document to get started.
                 </p>
               </div>
             ) : (
-              <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
-                {clients.map((client) => {
-                  const documents = getClientDocuments(client.id);
-                  return (
-                    <Link
-                      key={client.id}
-                      href={`/dashboard/admin/documents/${client.id}`}
-                    >
-                      <Card className='cursor-pointer transition-shadow hover:shadow-md'>
-                        <CardContent className='p-6'>
-                          <div className='mb-4 flex items-start justify-between'>
-                            <div className='rounded-lg bg-blue-100 p-2'>
-                              <IconBuilding className='h-6 w-6 text-blue-600' />
-                            </div>
-                            {getClientStatusBadge(client.status)}
-                          </div>
-                          <div className='space-y-2'>
-                            <h3 className='text-lg font-semibold'>
-                              {client.name}
-                            </h3>
-                            <p className='text-muted-foreground text-sm'>
-                              {client.email}
-                            </p>
-                            <div className='flex items-center justify-between text-sm'>
-                              <span className='text-muted-foreground'>
-                                {client.document_count} documents
-                              </span>
-                              <span className='text-muted-foreground'>
-                                {client.total_size}
-                              </span>
-                            </div>
-                            <div className='text-muted-foreground text-xs'>
-                              Last activity:{' '}
-                              {new Date(
-                                client.last_activity
-                              ).toLocaleDateString()}
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  );
-                })}
+              <div className='space-y-4'>
+                {documents.map((doc) => (
+                  <div
+                    key={doc.id}
+                    className='flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-gray-50'
+                  >
+                    <div className='flex items-center gap-4'>
+                      <div className='rounded-lg bg-blue-100 p-2'>
+                        <IconFileText className='h-6 w-6 text-blue-600' />
+                      </div>
+                      <div>
+                        <h4 className='font-medium'>{doc.name}</h4>
+                        <div className='text-muted-foreground flex items-center gap-4 text-sm'>
+                          <span>{doc.type}</span>
+                          <span>{doc.size}</span>
+                          <span>
+                            {new Date(doc.uploaded_at).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <div className='mt-1 flex items-center gap-2'>
+                          {getCategoryBadge(doc.category)}
+                        </div>
+                      </div>
+                    </div>
+                    <div className='flex items-center gap-2'>
+                      {getDocumentStatusBadge(doc.status)}
+                      <Button variant='ghost' size='sm'>
+                        <IconEye className='h-4 w-4' />
+                      </Button>
+                      <Button variant='ghost' size='sm'>
+                        <IconDownload className='h-4 w-4' />
+                      </Button>
+                      <Button variant='ghost' size='sm'>
+                        <IconEdit className='h-4 w-4' />
+                      </Button>
+                      <Button variant='ghost' size='sm'>
+                        <IconTrash className='h-4 w-4' />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </CardContent>

@@ -15,10 +15,14 @@ import {
   IconUsers,
   IconPlus,
   IconSearch,
-  IconFilter
+  IconFilter,
+  IconBuilding,
+  IconMail,
+  IconPhone,
+  IconFileText
 } from '@tabler/icons-react';
-import { ClientsTable } from './components/clients-table';
 import { supabaseAdmin } from '@/lib/supabase';
+import Link from 'next/link';
 
 function getMonthRange(date = new Date()) {
   const start = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -48,6 +52,10 @@ export default async function AdminClientsPage() {
     percentChangeNew: 0,
     pendingClients: 0
   };
+
+  // Fetch all clients
+  let clients = [];
+  let searchTerm = '';
 
   try {
     // Get total clients count
@@ -115,9 +123,31 @@ export default async function AdminClientsPage() {
       percentChangeNew,
       pendingClients: Number(pendingClients ?? 0)
     };
+
+    // Fetch all clients
+    const { data: clientsData } = await supabaseAdmin
+      .from('clients')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    clients = clientsData || [];
   } catch (error) {
-    console.error('Error fetching dashboard data:', error);
+    console.error('Error fetching data:', error);
   }
+
+  const getStatusBadge = (status: string) => {
+    const variants = {
+      active: 'default',
+      inactive: 'secondary',
+      pending: 'outline'
+    } as const;
+
+    return (
+      <Badge variant={variants[status as keyof typeof variants] || 'outline'}>
+        {status}
+      </Badge>
+    );
+  };
 
   return (
     <PageContainer>
@@ -204,16 +234,67 @@ export default async function AdminClientsPage() {
           </Card>
         </div>
 
-        {/* Clients Table */}
+        {/* Clients Grid */}
         <Card>
           <CardHeader>
-            <CardTitle>Client Management</CardTitle>
+            <CardTitle>All Clients</CardTitle>
             <CardDescription>
-              View and manage all client information, contacts, and status
+              Click on any client to view their documents and information
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ClientsTable />
+            {clients.length === 0 ? (
+              <div className='py-8 text-center'>
+                <IconUsers className='text-muted-foreground mx-auto mb-4 h-12 w-12' />
+                <h3 className='text-muted-foreground text-lg font-medium'>
+                  No clients found
+                </h3>
+                <p className='text-muted-foreground text-sm'>
+                  Get started by adding your first client.
+                </p>
+              </div>
+            ) : (
+              <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+                {clients.map((client) => (
+                  <Link
+                    key={client.client_id}
+                    href={`/dashboard/admin/clients/${client.client_id}/documents`}
+                    className='block'
+                  >
+                    <Card className='cursor-pointer transition-shadow hover:shadow-md'>
+                      <CardHeader className='pb-3'>
+                        <div className='flex items-center justify-between'>
+                          <CardTitle className='text-lg'>
+                            {client.name || 'Unnamed Client'}
+                          </CardTitle>
+                          {getStatusBadge(client.status)}
+                        </div>
+                      </CardHeader>
+                      <CardContent className='space-y-3'>
+                        <div className='text-muted-foreground flex items-center gap-2 text-sm'>
+                          <IconBuilding className='h-4 w-4' />
+                          <span>{client.company || 'No company'}</span>
+                        </div>
+                        <div className='text-muted-foreground flex items-center gap-2 text-sm'>
+                          <IconMail className='h-4 w-4' />
+                          <span>{client.email}</span>
+                        </div>
+                        {client.phone && (
+                          <div className='text-muted-foreground flex items-center gap-2 text-sm'>
+                            <IconPhone className='h-4 w-4' />
+                            <span>{client.phone}</span>
+                          </div>
+                        )}
+                        <div className='text-muted-foreground flex items-center gap-2 text-sm'>
+                          <IconFileText className='h-4 w-4' />
+                          <span>View Documents</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

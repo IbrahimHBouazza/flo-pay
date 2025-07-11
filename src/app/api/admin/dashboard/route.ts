@@ -66,11 +66,16 @@ export async function GET(request: NextRequest) {
     // Calculate percent changes
     const percentChangeTotal =
       totalLastMonth && totalLastMonth > 0
-        ? Math.round(((totalClients - totalLastMonth) / totalLastMonth) * 100)
+        ? Math.round(
+            ((Number(totalClients ?? 0) - totalLastMonth) / totalLastMonth) *
+              100
+          )
         : 0;
     const percentChangeNew =
       newLastMonth && newLastMonth > 0
-        ? Math.round(((newThisMonth - newLastMonth) / newLastMonth) * 100)
+        ? Math.round(
+            ((Number(newThisMonth ?? 0) - newLastMonth) / newLastMonth) * 100
+          )
         : 0;
 
     return NextResponse.json({
