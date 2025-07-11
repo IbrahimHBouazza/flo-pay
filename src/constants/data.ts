@@ -60,6 +60,74 @@ export const navItems: NavItem[] = [
   }
 ];
 
+// Admin-specific navigation items
+export const adminNavItems: NavItem[] = [
+  {
+    title: 'Dashboard',
+    url: '/dashboard/admin',
+    icon: 'home',
+    isActive: false,
+    shortcut: ['d', 'a'],
+    items: []
+  },
+  {
+    title: 'Clients',
+    url: '/dashboard/admin/clients',
+    icon: 'users',
+    isActive: false,
+    shortcut: ['c', 'l'],
+    items: []
+  },
+  {
+    title: 'Documents',
+    url: '/dashboard/admin/documents',
+    icon: 'folder',
+    isActive: false,
+    shortcut: ['d', 'o'],
+    items: []
+  },
+  {
+    title: 'Tasks',
+    url: '/dashboard/admin/tasks',
+    icon: 'clipboard',
+    isActive: false,
+    shortcut: ['t', 'a'],
+    items: []
+  },
+  {
+    title: 'Messages',
+    url: '/dashboard/admin/messages',
+    icon: 'message',
+    isActive: false,
+    shortcut: ['m', 'e'],
+    items: []
+  },
+  {
+    title: 'Deadlines',
+    url: '/dashboard/admin/deadlines',
+    icon: 'calendar',
+    isActive: false,
+    shortcut: ['d', 'e'],
+    items: []
+  },
+  {
+    title: 'Financial Overview',
+    url: '/dashboard/admin/financial',
+    icon: 'chart',
+    isActive: false,
+    shortcut: ['f', 'i'],
+    items: []
+  },
+  {
+    title: 'Firm Settings',
+    url: '/dashboard/admin/settings',
+    icon: 'settings',
+    isActive: false,
+    shortcut: ['s', 'e'],
+    items: []
+  }
+];
+
 export interface SaleUser {
   id: number;
   name: string;
